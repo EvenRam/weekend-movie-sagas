@@ -15,7 +15,7 @@ function MovieList() {
     dispatch({ type: 'FETCH_MOVIES' });
   }, []);
 
-const  handleClick = (event) => {
+const handleDetails = (event) => {
  event.preventDefault()
 
 history.push("/DetailsPage")
@@ -35,7 +35,7 @@ history.push("/DetailsPage")
               data-testid="toDetails"
               src={movie.poster} 
               alt={movie.title}
-              onClick={handleClick}
+              onClick={handleDetails}
               />
               </button>
             </div>
