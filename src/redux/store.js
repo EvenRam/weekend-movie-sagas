@@ -8,7 +8,8 @@ import axios from 'axios';
 function* rootSaga() {
   yield takeEvery('FETCH_MOVIES', fetchAllMovies);
   yield takeEvery ("NAV_TO_DETAILS_PAGE", handlesDetails)
-
+  yield takeEvery('SET_GENRES' , fetchGenres);
+  yield takeEvery ('SET_MOVIE_DETAILS', fetchMovieDetails)
 }
 
 function* fetchAllMovies() {
@@ -33,6 +34,32 @@ yield put ({
 })
 
 }
+function* fetchMovieDetails(action) {
+  try {
+    const detailResponse = yield axios.get(`/api/movies`);
+    yield put({
+      type: 'SET_MOVIE_DETAILS',
+      payload: detailResponse.data
+    });
+  } catch (error) {
+    console.log('fetchMovieDetails error:', error);
+  }
+}
+
+function* fetchGenres (action){
+try{
+  //Get all Genres
+  const genreRepsonse = yield axios.get('/api/genres');
+  console.log('checking genre', genreRepsonse.data)
+  yield put ({ 
+    type: "SET_GENRES",
+    payload:genreRepsonse.data
+  })
+}catch (error) {
+  console.log('fetchAllGenres error:', error)
+}
+}
+
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
