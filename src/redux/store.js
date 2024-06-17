@@ -46,15 +46,15 @@ function* fetchMovieDetails(action) {
   }
 }
 
-function* fetchGenres (action){
+function* fetchGenres(action){
 try{
   //Get all Genres
-  const genreRepsonse = yield axios.get('/api/genres');
-  console.log('checking genre', genreRepsonse.data)
+  const genreRepsonse = yield axios.get(`/api/genres'`);
+  console.log('checking genre', genreRepsonse)
   yield put ({ 
     type: "SET_GENRES",
     payload:genreRepsonse.data
-  })
+  });
 }catch (error) {
   console.log('fetchAllGenres error:', error)
 }
@@ -84,11 +84,32 @@ const genres = (state = [], action) => {
   }
 }
 
+const movieDetails = (state = [], action) => {
+switch (action.type){
+  case 'SET_MOVIE_DETAILS':
+    return action.payload;
+    default:
+      return state;
+}
+}
+
+const movieGenres = (state = [], action) => {
+  switch (action.type){
+    case 'SET_MOVIE_GENRES':
+      return action.payload;
+      default:
+        return state;
+  }
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
   combineReducers({
     movies,
     genres,
+    movieDetails,
+    movieGenres
+
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger),

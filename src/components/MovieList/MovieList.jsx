@@ -28,11 +28,12 @@ history.push("/DetailsPage")
       <section className="movies">
         {movies.map(movie => {
           return (
-            <div data-testid='movieItem' key={movie.id}>
+            <div  data-testid='movieItem' key={movie.id}>
               <h3>{movie.title}</h3>
-              <button>
+              <button  className='movie_posters'>
               <img 
               data-testid="toDetails"
+             
               src={movie.poster} 
               alt={movie.title}
               onClick={handleDetails}

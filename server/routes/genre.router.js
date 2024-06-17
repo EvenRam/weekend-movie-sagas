@@ -4,17 +4,22 @@ const router = express.Router();
 const pool = require('../modules/pool')
 
 
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
+  // add query to get all genres
+  const movieId = req.params.id;
+  console.log("router get for all generes")
   const queryText = `
-SELECT * FROM "genres"
-`
+SELECT genres.id, genres.name 
+FROM genres
+JOIN movies_genres.movie_id = ${movieId};
+`;
   pool.query(queryText)
     .then((result) => {
-      console.log("result in genres.get", result.rows);
-      res.json(result.rows)
+      console.log("results", result.rows);
+      res.send(result.rows)
     })
     .catch((error) => {
-      console.log('error in genres.get ');
+      console.log('error in fetching details', error);
       res.sendStatus(500)
     })
 });

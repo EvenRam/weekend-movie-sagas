@@ -12,9 +12,9 @@ function App() {
           <MovieList />
         </Route>
         
-        <Route path="/DetailsPage">
+        {/* <Route path="/DetailsPage">
         <DetailsPage/>
-        </Route>
+        </Route> */}
 
 
         {/* Add Movie page */}
