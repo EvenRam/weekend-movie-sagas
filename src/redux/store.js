@@ -49,7 +49,7 @@ function* fetchMovieDetails(action) {
 function* fetchGenres(action){
 try{
   //Get all Genres
-  const genreRepsonse = yield axios.get(`/api/genres'`);
+  const genreRepsonse = yield axios.get(`/api/genres/${action.payload}`);
   console.log('checking genre', genreRepsonse)
   yield put ({ 
     type: "SET_GENRES",
@@ -66,6 +66,8 @@ const sagaMiddleware = createSagaMiddleware();
 
 // Used to store movies returned from the server
 const movies = (state = [], action) => {
+  console.log('movies', action.payload)
+
   switch (action.type) {
     case 'SET_MOVIES':
       return action.payload;
@@ -75,7 +77,10 @@ const movies = (state = [], action) => {
 }
 
 // Used to store the movie genres
-const genres = (state = [], action) => {
+const genres = (state = [], action) => {  
+  
+  console.log("GENRES", action.payload)
+
   switch (action.type) {
     case 'SET_GENRES':
       return action.payload;
@@ -94,6 +99,7 @@ switch (action.type){
 }
 
 const movieGenres = (state = [], action) => {
+  console.log("MovieGENRES", action.payload)
   switch (action.type){
     case 'SET_MOVIE_GENRES':
       return action.payload;
